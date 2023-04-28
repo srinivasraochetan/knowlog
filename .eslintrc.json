@@ -1,0 +1,67 @@
+{
+    "root": true,
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "env": {
+                "browser": true,
+                "node": true,
+                "es6": true
+            },
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                "prettier/prettier": ["error", { "endOfLine": "auto" }]
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended",
+                "plugin:prettier/recommended"
+            ],
+            "rules": { "prettier/prettier": ["error", { "endOfLine": "auto" }] }
+        },
+        {
+            "files": ["*.js"],
+            "env": {
+                "es6": true
+            },
+            "parserOptions": {
+                "ecmaVersion": 2022,
+                "sourceType": "module"
+            },
+            "rules": {
+                "prettier/prettier": ["error", { "endOfLine": "auto" }]
+            },
+            "extends": ["plugin:prettier/recommended"]
+        },
+        {
+            "files": ["*.spec.ts"],
+            "env": {
+                "jasmine": true
+            }
+        }
+    ]
+}
