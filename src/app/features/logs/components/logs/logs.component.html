@@ -1,0 +1,52 @@
+<ng-container *ngIf="!showLoader; else logLoaderTemplate">
+    <form>
+        <div class="row g-3 align-items-right text-bg-info p-2">
+            <div class="col-auto">
+                <label for="categorySelect" class="col-form-label"
+                    >Showing knowledge logs belonging to category</label
+                >
+            </div>
+            <div class="col-auto">
+                <select
+                    id="categorySelect"
+                    class="form-control form-control-lg form-select form-select-sm"
+                    aria-label=".form-select-sm example"
+                    (change)="onCategoryChange($event)"
+                >
+                    <option>Select a category</option>
+                    <ng-container *ngFor="let logCategory of logCategories">
+                        <option
+                            [value]="logCategory.value"
+                            [selected]="logCategory.selected"
+                        >
+                            {{ logCategory.label }}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</ng-container>
+
+<ng-template #logLoaderTemplate>
+    <div
+        style="
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        "
+    >
+        <div
+            class="spinner-grow text-warning"
+            style="width: 3rem; height: 3rem"
+            role="status"
+        >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>

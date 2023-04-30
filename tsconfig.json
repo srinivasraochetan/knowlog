@@ -25,7 +25,9 @@
     ],
     "paths": {
         "@ngrx/signals": ["src/lib/index.ts"],
-        "@shared/*": ["src/app/shared/*"]
+        "@shared/*": ["src/app/shared/*"],
+        "@logs/*": ["src/app/features/logs/*"],
+        "@createNew/*": ["src/app/features/create-new-log/*"]
     },
   },
   "angularCompilerOptions": {
