@@ -19,21 +19,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a
-                        class="nav-link active mb-0"
-                        aria-current="page"
-                        href="#"
-                        style="color: #fff"
-                        ><i class="fa fa-layer-group"></i> Logs</a
-                    >
-                </li>
+                <ng-container *ngFor="let navTab of navTabs">
+                    <li class="nav-item">
+                        <a
+                            class="nav-link mb-0"
+                            aria-current="page"
+                            [routerLink]="navTab.navUrl"
+                            routerLinkActive="active"
+                            style="color: #fff"
+                            (click)="toggleActive(navTab)"
+                            ><ng-container *ngIf="navTab.fontAwesomeIconClass">
+                                <i [class]="navTab.fontAwesomeIconClass"></i>
+                            </ng-container>
+                            {{ navTab.label }}</a
+                        >
+                    </li>
+                </ng-container>
             </ul>
-            <form class="justify-content-start">
-                <button class="btn btn-outline-light me-2" type="submit">
-                    <i class="fa-solid fa-notes-medical"></i> Create New Log
-                </button>
-            </form>
+            <button
+                class="btn btn-outline-light me-2"
+                (click)="onCreateNewLog()"
+            >
+                <i class="fa-solid fa-notes-medical"></i> Create New Log
+            </button>
         </div>
     </div>
 </nav>
