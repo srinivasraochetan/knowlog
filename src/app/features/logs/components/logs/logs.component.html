@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showLoader; else logLoaderTemplate">
+<ng-container *ngIf="!categoriesStore.loading(); else logLoaderTemplate">
     <form>
         <div class="row g-3 align-items-right text-bg-info p-2">
             <div class="col-auto">
@@ -13,20 +13,79 @@
                     aria-label=".form-select-sm example"
                     (change)="onCategoryChange($event)"
                 >
-                    <option>Select a category</option>
-                    <ng-container *ngFor="let logCategory of logCategories">
+                    <ng-container
+                        *ngFor="let logCategory of categoriesStore.uiData()"
+                    >
                         <option
                             [value]="logCategory.value"
-                            [selected]="logCategory.selected"
+                            [selected]="
+                                categoriesStore.selectedCategory() ===
+                                logCategory.value
+                            "
                         >
                             {{ logCategory.label }}
                         </option>
                     </ng-container>
                 </select>
             </div>
+            <div class="col-auto">
+                <div class="input-group mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Add new Category"
+                        aria-label="Add new Category"
+                        aria-describedby="button-addcatgeory"
+                        [(ngModel)]="newCategory"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
+                    <button
+                        class="btn btn-outline-dark"
+                        type="button"
+                        id="button-addcatgeory"
+                        (click)="onAddNewCategory()"
+                        [attr.disabled]="newCategory === '' ? true : null"
+                    >
+                        Add
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="input-group mb-3">
+                    <select
+                        id="categoryDelete"
+                        class="form-control form-control-lg form-select form-select-sm"
+                        aria-label=".form-select-sm example"
+                        [(ngModel)]="deleteCategory"
+                        [ngModelOptions]="{ standalone: true }"
+                    >
+                        <option value="ignore">
+                            Select a Category to delete
+                        </option>
+                        <ng-container
+                            *ngFor="let logCategory of categoriesStore.uiData()"
+                        >
+                            <option [value]="logCategory.value">
+                                {{ logCategory.label }}
+                            </option>
+                        </ng-container>
+                    </select>
+                    <button
+                        class="btn btn-outline-dark"
+                        type="button"
+                        id="button-deletecatgeory"
+                        (click)="onDeleteCategory()"
+                        [attr.disabled]="
+                            deleteCategory === 'ignore' ? true : null
+                        "
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
-    <div class="container-fluid">
+    <div class="container-fluid p-0 pt-1">
         <router-outlet></router-outlet>
     </div>
 </ng-container>

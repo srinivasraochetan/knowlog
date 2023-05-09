@@ -17,3 +17,7 @@ export type AlertType =
     | 'info'
     | 'light'
     | 'dark';
+
+export interface BaseConfigType {
+    [key: string]: string;
+}
